@@ -20,12 +20,6 @@ import type {
   TabsConfigsType,
 } from './types';
 
-Animated.addWhitelistedNativeProps({
-  width: true,
-  stroke: true,
-  backgroundColor: true,
-});
-
 interface AnimatedTabBarProps
   extends BottomTabBarProps,
     TabBarAnimationConfigurableProps {

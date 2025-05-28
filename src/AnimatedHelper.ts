@@ -55,7 +55,7 @@ export const useInterpolate = (
   input: number[],
   output: number[],
   type?: Animated.Extrapolate
-) => useDerivedValue(() => interpolate(progress.value, input, output, type));
+) => useDerivedValue(() => interpolate(progress.value, input, output, type ? { extrapolateRight: type } : undefined));
 export const sharedRound = (value: number) => {
   'worklet';
   return Math.round(value);
