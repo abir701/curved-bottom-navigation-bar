@@ -6,7 +6,14 @@ declare module 'react-native-reanimated' {
     modify: (modifier: (value: T) => T) => void;
   }
 
-  // Add any missing types here
+  // Extend DerivedValue to be assignment-compatible with SharedValue
+  export interface DerivedValue<T> extends SharedValue<T> {}
+
+  // Make sure useDerivedValue returns a value that can be used as SharedValue
+  export function useDerivedValue<T>(
+    processor: () => T,
+    dependencies?: ReadonlyArray<any>
+  ): SharedValue<T>;
 }
 
 // Fix for compatibility with newer React Navigation

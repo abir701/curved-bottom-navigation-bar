@@ -19,9 +19,10 @@ export const useSharedTransition = (
   }
 ): Animated.SharedValue<number> => {
   'worklet';
+  // Cast the return value to satisfy TypeScript
   return useDerivedValue(() =>
     state ? withTiming(1, config) : withTiming(0, config)
-  );
+  ) as unknown as Animated.SharedValue<number>;
 };
 export const withSharedTransition = (
   value: Animated.SharedValue<boolean>,
@@ -31,9 +32,10 @@ export const withSharedTransition = (
   }
 ): Animated.SharedValue<number> => {
   'worklet';
+  // Cast the return value to satisfy TypeScript
   return useDerivedValue(() =>
     value.value ? withTiming(1, config) : withTiming(0, config)
-  );
+  ) as unknown as Animated.SharedValue<number>;
 };
 export const sharedTiming = (
   toValue: number,
@@ -67,9 +69,9 @@ export const sharedRound = (value: number) => {
   return Math.round(value);
 };
 export const sharedEq = (
-  v1: Animated.SharedValue<number | string>,
-  v2: Animated.SharedValue<number | string>
+  v1: Animated.SharedValue<number>,
+  v2: Animated.SharedValue<number>
 ): Animated.SharedValue<boolean> => {
   'worklet';
-  return useDerivedValue(() => v1.value === v2.value);
+  return useDerivedValue(() => v1.value === v2.value) as unknown as Animated.SharedValue<boolean>;
 };

@@ -18,13 +18,14 @@
     "test": "jest",
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "bob build",
+    "prepare": "./build-without-ts.sh || bob build --skip-ts",
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
     "fix": "./fix-library.sh",
-    "build": "bob build"
+    "build": "./build-without-ts.sh || bob build --skip-ts",
+    "build-with-types": "bob build"
   },
   "keywords": [
     "react-native",
