@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Animated, {
-  AnimationCallback,
   Easing,
   interpolate,
   useDerivedValue,
   withTiming,
-  WithTimingConfig,
+  Extrapolation,
+} from 'react-native-reanimated';
+import type { 
+  AnimationCallback,
+  WithTimingConfig
 } from 'react-native-reanimated';
 
 export const useSharedTransition = (
@@ -54,8 +57,11 @@ export const useInterpolate = (
   progress: Animated.SharedValue<number>,
   input: number[],
   output: number[],
-  type?: Animated.Extrapolate
-) => useDerivedValue(() => interpolate(progress.value, input, output, type ? { extrapolateRight: type } : undefined));
+  type?: Extrapolation
+) => useDerivedValue(() => interpolate(progress.value, input, output, {
+  extrapolateLeft: type || Extrapolation.CLAMP,
+  extrapolateRight: type || Extrapolation.CLAMP
+}));
 export const sharedRound = (value: number) => {
   'worklet';
   return Math.round(value);
@@ -63,7 +69,7 @@ export const sharedRound = (value: number) => {
 export const sharedEq = (
   v1: Animated.SharedValue<number | string>,
   v2: Animated.SharedValue<number | string>
-) => {
+): Animated.SharedValue<boolean> => {
   'worklet';
   return useDerivedValue(() => v1.value === v2.value);
 };
