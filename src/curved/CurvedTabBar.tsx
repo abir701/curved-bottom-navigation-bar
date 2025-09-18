@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { View } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedProps,
   useDerivedValue,
@@ -10,7 +11,8 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Svg, { Path, PathProps } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
+import type { PathProps } from 'react-native-svg';
 import {
   sharedEq,
   sharedTiming,

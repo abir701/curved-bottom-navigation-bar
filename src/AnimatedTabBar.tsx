@@ -2,7 +2,8 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { I18nManager } from 'react-native';
 import isEqual from 'react-fast-compare';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { CommonActions, Route } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
+import type { Route } from '@react-navigation/native';
 import Animated, {
   runOnJS,
   useAnimatedReaction,

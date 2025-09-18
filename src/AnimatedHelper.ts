@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Animated, {
-  AnimationCallback,
   Easing,
   interpolate,
   useDerivedValue,
   withTiming,
-  WithTimingConfig,
+  Extrapolation,
+} from 'react-native-reanimated';
+import type { 
+  AnimationCallback,
+  WithTimingConfig
 } from 'react-native-reanimated';
 
 export const useSharedTransition = (
@@ -16,9 +19,10 @@ export const useSharedTransition = (
   }
 ): Animated.SharedValue<number> => {
   'worklet';
+  // Cast the return value to satisfy TypeScript
   return useDerivedValue(() =>
     state ? withTiming(1, config) : withTiming(0, config)
-  );
+  ) as unknown as Animated.SharedValue<number>;
 };
 export const withSharedTransition = (
   value: Animated.SharedValue<boolean>,
@@ -28,9 +32,10 @@ export const withSharedTransition = (
   }
 ): Animated.SharedValue<number> => {
   'worklet';
+  // Cast the return value to satisfy TypeScript
   return useDerivedValue(() =>
     value.value ? withTiming(1, config) : withTiming(0, config)
-  );
+  ) as unknown as Animated.SharedValue<number>;
 };
 export const sharedTiming = (
   toValue: number,
@@ -54,16 +59,19 @@ export const useInterpolate = (
   progress: Animated.SharedValue<number>,
   input: number[],
   output: number[],
-  type?: Animated.Extrapolate
-) => useDerivedValue(() => interpolate(progress.value, input, output, type ? { extrapolateRight: type } : undefined));
+  type?: Extrapolation
+) => useDerivedValue(() => interpolate(progress.value, input, output, {
+  extrapolateLeft: type || Extrapolation.CLAMP,
+  extrapolateRight: type || Extrapolation.CLAMP
+}));
 export const sharedRound = (value: number) => {
   'worklet';
   return Math.round(value);
 };
 export const sharedEq = (
-  v1: Animated.SharedValue<number | string>,
-  v2: Animated.SharedValue<number | string>
-) => {
+  v1: Animated.SharedValue<number>,
+  v2: Animated.SharedValue<number>
+): Animated.SharedValue<boolean> => {
   'worklet';
-  return useDerivedValue(() => v1.value === v2.value);
+  return useDerivedValue(() => v1.value === v2.value) as unknown as Animated.SharedValue<boolean>;
 };
